@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="content-section">
+        <div class="media">
+            <img class="rounded-circle account-img" src={{ url_for("static", filename="profile_pics/"+ current_user.image_file) }}>
+            <div class="media-body">
+                <h2 class="account-heading"> {{ current_user.username }} </h2>
+                <p class="text-secondary"> {{ current_user.email }} </p>
+            </div>
+        </div>
+        <form method="POST" action="" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4"> Account Info </legend>
+                {% for formfield in [form.username, form.email, form.picture] %}
+                    <div class="form-group">
+                        <div>{{ formfield.label(class="form-control-label") }}</div>
+                        <div>{{ formfield }}</div>
+                        {% if formfield.errors %}
+                            {% for error in formfield.errors %}
+                                <span class="text-danger">{{ error }}</span></br>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </filedset>
+            <div> {{ form.submit(class="btn btn-outline-info") }} </div>
+        </form>
+    </div>
+{% endblock content %}

@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="content-section">
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4"> Join Today </legend>
+            {% for formfield in [form.username, form.email, form.password, form.confirm_password] %}
+                <div class="form-group">
+                    {{ formfield.label }}
+                    {% if formfield.errors %}
+                        {{ formfield(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in formfield.errors %}
+                                <span> {{ error }} </span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                    {{ formfield(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </fieldset>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-outline-info") }}
+        </div>
+    </form>
+    
+</div>
+{% endblock content %}
